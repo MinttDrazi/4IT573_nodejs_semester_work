@@ -1,0 +1,27 @@
+{
+  "name": "game-database",
+  "version": "1.0.0",
+  "description": "Database of video games",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx --watch index.ts",
+    "dev:demon": "nodemon index.ts",
+    "dev:tsnode": "node --loader ts-node/esm index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ditm01",
+  "license": "ISC",
+  "dependencies": {
+    "@hono/node-server": "^1.14.4",
+    "hono": "^4.7.11"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
