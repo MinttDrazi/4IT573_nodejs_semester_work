@@ -1,4 +1,14 @@
+# Node
 /node_modules
-/dist
 /*/node_modules
+
+# Build folders
+/dist
 /*/dist
+
+
+# ENV
+.env
+
+# Database
+db.sqlite

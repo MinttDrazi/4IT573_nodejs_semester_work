@@ -10,18 +10,25 @@
     "dev:tsnode": "node --loader ts-node/esm index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx seed/index.ts"
   },
   "author": "ditm01",
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^1.14.4",
+    "@libsql/client": "^0.15.9",
+    "dotenv": "^16.5.0",
+    "drizzle-kit": "^0.31.1",
+    "drizzle-orm": "^0.44.2",
     "hono": "^4.7.11"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "tsx": "^4.19.4",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
 }

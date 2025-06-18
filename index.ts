@@ -1,6 +1,9 @@
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { cors } from "hono/cors";
+import { db } from "./src/db/connection";
+import { games } from "./src/db/schema";
+import { seed } from "./seed";
 
 const app = new Hono();
 
@@ -19,7 +22,7 @@ app.get("/", (c) => {
   return c.html("<h1>Hello, World!</h1>");
 });
 
-app.get("say", (c) => {
+app.get("/say", (c) => {
   // c.text funkce vytvoří text odpověď
   return c.text("Hello, World");
 });

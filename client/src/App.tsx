@@ -3,9 +3,9 @@ import axios from "axios";
 
 //data will be the string we send from our server
 const apiCall = () => {
-  axios.get("http://localhost:3000").then((data) => {
+  axios.get("http://localhost:3000/json").then((response) => {
     //this console.log will be in our frontend console
-    console.log(data);
+    console.log(response.data);
   });
 };
 
