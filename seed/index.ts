@@ -1,11 +1,11 @@
 import { db } from "../src/db/connection";
-import { games } from "../src/db/schema";
+import { gamesTable } from "../src/db/schema";
 import { gameRecords } from "./data/games";
 
 export async function seed() {
   console.log("Starting seed function ");
 
-  await db.insert(games).values(gameRecords);
+  await db.insert(gamesTable).values(gameRecords);
 
   console.log(`Sample data inserted`);
   process.exit(0);
