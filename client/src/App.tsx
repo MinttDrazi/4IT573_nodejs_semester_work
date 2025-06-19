@@ -1,6 +1,7 @@
 import { useState } from "react";
-import "./App.css";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { NavLink } from "react-router";
 
 function App() {
   // 1) Stav pro přijatá data
@@ -20,10 +21,12 @@ function App() {
   };
 
   return (
-    <div>
-      <h1>Homepage</h1>
-      <button onClick={apiCall}>Načíst hry</button>
-
+    <div className="bg-accent">
+      <h1>Homepage New</h1>
+      <Button onClick={apiCall} className="hover:cursor-pointer">
+        Načíst hry
+      </Button>
+      <NavLink to="/about">About us</NavLink>
       {/* 3) Zobrazení dat */}
       <h2>Seznam her:</h2>
       {/* Nebo pro „raw“ JSON: */}
