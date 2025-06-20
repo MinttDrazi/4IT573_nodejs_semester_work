@@ -5,6 +5,7 @@ import { gameRecords } from "./data/games";
 export async function seed() {
   console.log("Starting seed function ");
 
+  await db.delete(gamesTable);
   await db.insert(gamesTable).values(gameRecords);
 
   console.log(`Sample data inserted`);

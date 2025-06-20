@@ -13,10 +13,16 @@ https://rawg.io/
 
 ## TODO
 
-- [ ] Registrace a prihlaseni
+- [x] Registrace a prihlaseni
 - [x] Routing na frontendu
-- [ ] Zabezpeceni routingu, middleware
+- [x] JWT token (persinent login)
+- [x] Zabezpeceni routingu, middleware
 - [x] Pridani css knihovny na frontendu
-- [ ] Homepage - zobrazeni vsech videoher
-- [ ] Registration page
-- [ ] login page
+- [x] Homepage - zobrazeni vsech videoher
+- [x] Registration page
+- [ ] add confirm password frotend check
+- [x] login page
+- [ ] library page
+- [ ] wishlist page
+- [ ] Detail game page
+- [ ] add all endpoints - not yet implemented

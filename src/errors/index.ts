@@ -18,6 +18,11 @@ export const ERRORS: Record<string, ApiError> = {
     code: "WRONG_PASSWORD",
     message: "The password provided is incorrect.",
   },
+  UNAUTHORIZED: {
+    status: 401,
+    code: "UNAUTHORIZED",
+    message: "Not authorized",
+  },
   NOT_FOUND: {
     status: 404,
     code: "NOT_FOUND",
