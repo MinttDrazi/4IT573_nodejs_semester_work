@@ -3,7 +3,7 @@ export const gameRecords = [
     id: 1,
     title: "Minecraft",
     description:
-      "Sandboxová hra s neomezenými možnostmi stavění a průzkumu světa z bloků",
+      "A sandbox game with limitless building possibilities and world exploration made of blocks",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co8fu7.jpg",
   },
@@ -11,7 +11,7 @@ export const gameRecords = [
     id: 2,
     title: "The Witcher 3: Wild Hunt",
     description:
-      "Akční RPG v otevřeném fantasy světě, kde hrajete za zaklínače Geralta",
+      "An action RPG set in an open fantasy world where you play as the witcher Geralt",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co1wyy.jpg",
   },
@@ -19,7 +19,7 @@ export const gameRecords = [
     id: 3,
     title: "Cyberpunk 2077",
     description:
-      "Příběhové open-world RPG zasazené do futuristického Night City",
+      "A story-driven open-world RPG set in the futuristic Night City",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co7497.jpg",
   },
@@ -27,7 +27,7 @@ export const gameRecords = [
     id: 4,
     title: "Red Dead Redemption 2",
     description:
-      "Westernová akční adventura v obrovském otevřeném světě Divokého západu",
+      "A western action-adventure in a massive open world of the Wild West",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co1q1f.jpg",
   },
@@ -35,28 +35,28 @@ export const gameRecords = [
     id: 5,
     title: "Horizon Zero Dawn",
     description:
-      "Akční RPG s lovem strojových tvorů v postapokalyptické krajině",
+      "An action RPG featuring hunting mechanical creatures in a post-apocalyptic landscape",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co2una.jpg",
   },
   {
     id: 6,
     title: "The Legend of Zelda: Breath of the Wild",
-    description: "Otevřená akční adventura v rozsáhlém království Hyrule",
+    description: "An open action-adventure in the expansive kingdom of Hyrule",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co3p2d.jpg",
   },
   {
     id: 7,
     title: "God of War",
-    description: "Akční dobrodružství inspirované severskou mytologií",
+    description: "An action-adventure inspired by Norse mythology",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co1tmu.jpg",
   },
   {
     id: 8,
     title: "Elden Ring",
-    description: "Otevřené akční RPG od tvůrců Dark Souls",
+    description: "An open-world action RPG from the creators of Dark Souls",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co4jni.jpg",
   },
@@ -64,14 +64,14 @@ export const gameRecords = [
     id: 9,
     title: "Grand Theft Auto V",
     description:
-      "Kriminální open-world akce s trojicí protagonistů v Los Santos",
+      "A criminal open-world action game featuring a trio of protagonists in Los Santos",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co2lbd.jpg",
   },
   {
     id: 10,
     title: "Super Mario Odyssey",
-    description: "3D plošinovka s Mariem na cestě napříč různorodými světy",
+    description: "A 3D platformer with Mario journeying across diverse worlds",
     image:
       "https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co1mxf.jpg",
   },

@@ -22,7 +22,17 @@ https://rawg.io/
 - [x] Registration page
 - [ ] add confirm password frotend check
 - [x] login page
-- [ ] library page
-- [ ] wishlist page
+- [x] library page
+- [x] wishlist page
 - [ ] Detail game page
 - [ ] add all endpoints - not yet implemented
+- [ ] divide app.js file to smaller files per service
+- [ ] remake database
+
+# Database
+
+- users
+- games
+- library (m:n table references to user and game)
+- wishlist (m:n table reference to user and game)
+- review (table with references to user and game, with rating and text)

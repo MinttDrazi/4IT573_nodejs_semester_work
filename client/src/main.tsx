@@ -10,6 +10,7 @@ import { ProtectedRoute } from "./ProtectedRoute.tsx";
 import { AuthProvider } from "./auth.tsx";
 import LibraryPage from "./pages/LibraryPage.tsx";
 import WishlistPage from "./pages/WishlistPage.tsx";
+import GamePage from "./pages/GamePage.tsx";
 
 axios.defaults.withCredentials = true;
 
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<App />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/game/:id" element={<GamePage />} />
           <Route
             path="/library"
             element={

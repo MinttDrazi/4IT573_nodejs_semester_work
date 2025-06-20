@@ -38,6 +38,11 @@ export const ERRORS: Record<string, ApiError> = {
     code: "USER_ALREADY_EXISTS",
     message: "A user with this email address already exists.",
   },
+  ITEM_ALREADY_EXISTS: {
+    status: 409,
+    code: "ITEM_ALREADY_EXISTS",
+    message: "Item already exists.",
+  },
 };
 
 export function sendError(c: Context, error: ApiError) {

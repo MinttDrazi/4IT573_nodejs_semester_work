@@ -1,6 +1,20 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { createUser, getAllGames, getUser } from "./db/db";
+import {
+  addGameToWishlist,
+  createGameStatus,
+  createUser,
+  getAllGames,
+  getGame,
+  getGameFromWishlist,
+  getGamesbyIds,
+  getGameStatus,
+  getGameStatuses,
+  getUser,
+  getUserWishlist,
+  removeGameFromWishlist,
+  updateGameStatus,
+} from "./db/db";
 import type { Context } from "hono";
 import { getCookie, setCookie } from "hono/cookie";
 import { ERRORS, sendError } from "./errors";
@@ -97,7 +111,7 @@ const requireAuth = createMiddleware(async (c, next) => {
     jwt.verify(token, JWT_SECRET);
     await next();
   } catch (err) {
-    return sendError(c, ERRORS.WRONG_PASSWORD);
+    return sendError(c, ERRORS.UNAUTHORIZED);
   }
 });
 
@@ -106,4 +120,178 @@ app.get("/api/games", async (c) => {
   const games = await getAllGames();
 
   return c.json(games);
+});
+
+// Get one games
+app.get("/api/games/:id", async (c) => {
+  const { id } = c.req.param();
+  const gameId = parseInt(id);
+
+  const game = await getGame(gameId);
+
+  return c.json(game);
+});
+
+//get all user's games in library
+app.get("/api/library/:userId", async (c) => {
+  const userId = parseInt(c.req.param("userId"));
+
+  const gameStatuses = await getGameStatuses(userId);
+
+  const gameIds = gameStatuses.map((status) => status.gameId);
+
+  const games = await getGamesbyIds(gameIds);
+
+  return c.json(games, 200);
+});
+
+// get game status for user's game
+app.get("/api/games/:id/status", async (c) => {
+  const { id } = c.req.param();
+  const userId = c.req.query("userId");
+
+  const gameId = parseInt(id);
+  const userIdParsed = userId ? parseInt(userId) : 0;
+
+  const game = await getGame(gameId);
+
+  if (!game) {
+    return sendError(c, ERRORS.NOT_FOUND);
+  }
+
+  const status = await getGameStatus(gameId, userIdParsed);
+
+  return c.json(status, 200);
+});
+
+// change status for a game
+app.post("/api/games/:id/status", async (c) => {
+  // zpracovat id hry
+  const { id } = c.req.param();
+  const gameId = parseInt(id);
+
+  // z tela si vzit novy status a userId
+  const { userId, newStatus } = await c.req.json();
+
+  //najit hru
+  const game = await getGame(gameId);
+  if (!game) {
+    return sendError(c, ERRORS.NOT_FOUND);
+  }
+
+  // najit status hry
+  const status = await getGameStatus(gameId, userId);
+  if (status) {
+    // pokud je, jenom ho zmenit.
+    const gameStatus = await updateGameStatus(status.id, newStatus);
+
+    return c.json(gameStatus, 200);
+  } else {
+    // pokud neni, vytvorit novy
+    const gameStatus = await createGameStatus(gameId, userId, newStatus);
+
+    return c.json(gameStatus);
+  }
+});
+
+// Find game in wishlist
+app.get("/api/games/:id/wishlist", async (c) => {
+  const { id } = c.req.param();
+  const userId = c.req.query("userId");
+
+  const gameId = parseInt(id);
+  const userIdParsed = userId ? parseInt(userId) : 0;
+
+  // find game
+  const game = await getGame(gameId);
+  if (!game) {
+    return c.json(c, ERRORS.NOT_FOUND);
+  }
+
+  // find game in wishlist
+  const inWishlist = await getGameFromWishlist(userIdParsed, gameId);
+  if (!inWishlist) {
+    return sendError(c, ERRORS.NOT_FOUND);
+  }
+
+  return c.json(inWishlist, 200);
+});
+
+// get wishlist for a user
+app.get("/api/wishlist/:id", async (c) => {
+  // :id => userId
+  const { id } = c.req.param();
+  const userId = parseInt(id);
+
+  const wishlist = await getUserWishlist(userId);
+  // get wishlist from database (array of games)
+
+  const gameIds = wishlist.map((game) => game.gameId);
+
+  // return games
+  const games = await getGamesbyIds(gameIds);
+
+  return c.json(games, 200);
+});
+
+// add game to the wishlist
+app.post("/api/wishlist/:id", async (c) => {
+  // get userId
+  const { id } = c.req.param();
+  const userId = parseInt(id);
+
+  // get gameId from a body
+  const { gameId } = await c.req.json();
+
+  // find game
+  const game = await getGame(gameId);
+  if (!game) {
+    return c.json(c, ERRORS.NOT_FOUND);
+  }
+
+  // find game in wishlist
+  const inWishlist = await getGameFromWishlist(userId, gameId);
+  if (inWishlist) {
+    return sendError(c, ERRORS.ITEM_ALREADY_EXISTS);
+  }
+
+  // add game to wishlist
+  const item = await addGameToWishlist(userId, gameId);
+
+  // return success
+  return c.json(item, 200);
+});
+
+// Remove game from the wishlist
+app.delete("/api/wishlist/:userId/game/:gameId", async (c) => {
+  // get userId and gameId from params
+  const { userId, gameId } = c.req.param();
+  const userIdParsed = parseInt(userId);
+  const gameIdParsed = parseInt(gameId);
+
+  // find game
+  const game = await getGame(gameIdParsed);
+  if (!game) {
+    return c.json(c, ERRORS.NOT_FOUND);
+  }
+
+  // remove game from wishlist
+  const wishlist = await getGameFromWishlist(userIdParsed, gameIdParsed);
+  if (!wishlist) {
+    return sendError(c, ERRORS.NOT_FOUND);
+  }
+  await removeGameFromWishlist(wishlist.id);
+
+  // return success
+  return c.json("removed", 200);
+});
+
+// create a new review for a game
+app.post("/api/review/:id", async (c) => {
+  return c.json("not yet implemented");
+});
+
+// create a new review for a game
+app.post("/api/review/:id", async (c) => {
+  return c.json("not yet implemented");
 });
