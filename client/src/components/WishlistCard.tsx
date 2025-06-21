@@ -18,6 +18,7 @@ function WishlistCard({ gameId }: WishlistCardProps) {
         `http://localhost:3000/api/wishlist/${user?.id}/game/${gameId}`
       );
       console.log(res);
+      setWishlist(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -30,6 +31,7 @@ function WishlistCard({ gameId }: WishlistCardProps) {
       );
 
       console.log(res);
+      setWishlist(undefined);
     } catch (err) {
       console.log(err);
     }

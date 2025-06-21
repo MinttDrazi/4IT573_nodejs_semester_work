@@ -72,6 +72,7 @@ function StatusForm({
         data
       );
       console.log(res);
+      initialStatus = res.data.status;
     } catch (err) {
       console.log(err);
     }
