@@ -71,7 +71,6 @@ function StatusForm({
         `http://localhost:3000/api/library/${user?.id}/game/${gameId}`,
         data
       );
-      console.log(res);
       initialStatus = res.data.status;
     } catch (err) {
       console.log(err);
@@ -79,9 +78,7 @@ function StatusForm({
   }
 
   useEffect(() => {
-    if (initialStatus !== undefined) {
-      form.reset({ status: initialStatus });
-    }
+    form.reset({ status: initialStatus });
   }, [initialStatus, form]);
 
   return (

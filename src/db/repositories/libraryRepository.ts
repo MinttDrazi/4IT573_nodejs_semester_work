@@ -58,3 +58,8 @@ export async function updateLibraryItem(
 
   return item;
 }
+
+export async function deleteLibraryItem(id: number) {
+  const item = await db.delete(libraryTable).where(eq(libraryTable.id, id));
+  return item;
+}

@@ -26,12 +26,12 @@ https://rawg.io/
 - [x] login page
 - [x] library page
 - [x] wishlist page
-- [ ] Detail game page
+- [x] Detail game page
 - [x] add all endpoints - not yet implemented
 - [x] divide app.js file to smaller files per service (services)
 - [x] remake database
 - [x] Define model types
-- [ ] delete `console.logs`
+- [ ] delete `console.logs` z login a register page
 - [x] devide db.js to smaller files per database table (repositories)
 - [x] remake endpoints
 

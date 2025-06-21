@@ -49,6 +49,10 @@ export async function addGameToWishlistHandler(c: Context) {
   const userId = parseInt(c.req.param("userId"));
   const gameId = parseInt(c.req.param("gameId"));
 
+  if (isNaN(userId) || isNaN(gameId)) {
+    return sendError(c, ERRORS.INVALID_PAYLOAD);
+  }
+
   const game = await getGameById(gameId);
   if (!game) {
     return c.json(c, ERRORS.NOT_FOUND);
@@ -67,6 +71,10 @@ export async function addGameToWishlistHandler(c: Context) {
 export async function removeGameFromWishlistHandler(c: Context) {
   const userId = parseInt(c.req.param("userId"));
   const gameId = parseInt(c.req.param("gameId"));
+
+  if (isNaN(userId) || isNaN(gameId)) {
+    return sendError(c, ERRORS.INVALID_PAYLOAD);
+  }
 
   const game = await getGameById(gameId);
   if (!game) {

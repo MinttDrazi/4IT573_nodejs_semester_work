@@ -17,7 +17,6 @@ function WishlistCard({ gameId }: WishlistCardProps) {
       const res = await axios.post(
         `http://localhost:3000/api/wishlist/${user?.id}/game/${gameId}`
       );
-      console.log(res);
       setWishlist(res.data);
     } catch (err) {
       console.log(err);
@@ -29,9 +28,9 @@ function WishlistCard({ gameId }: WishlistCardProps) {
       const res = await axios.delete(
         `http://localhost:3000/api/wishlist/${user?.id}/game/${gameId}`
       );
-
-      console.log(res);
-      setWishlist(undefined);
+      if (res) {
+        setWishlist(undefined);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +45,6 @@ function WishlistCard({ gameId }: WishlistCardProps) {
       .get(`http://localhost:3000/api/wishlist/${user.id}/game/${gameId}`)
       .then((res) => {
         setWishlist(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

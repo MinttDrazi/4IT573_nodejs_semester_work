@@ -1,6 +1,7 @@
 import { Context } from "hono";
 import {
   createLibraryItem,
+  deleteLibraryItem,
   getLibrary,
   getLibraryItem,
   updateLibraryItem,
@@ -43,7 +44,6 @@ export async function getGameFromLibraryHandler(c: Context) {
   }
 
   const game = await getGameById(gameId);
-
   if (!game) {
     return sendError(c, ERRORS.NOT_FOUND);
   }
@@ -77,4 +77,27 @@ export async function changeGameStatusInLibraryHandler(c: Context) {
 
     return c.json(gameStatus);
   }
+}
+
+export async function removeGameFromLibraryHandler(c: Context) {
+  const userId = parseInt(c.req.param("userId"));
+  const gameId = parseInt(c.req.param("gameId"));
+
+  if (isNaN(userId) || isNaN(gameId)) {
+    return sendError(c, ERRORS.INVALID_PAYLOAD);
+  }
+
+  const game = await getGameById(gameId);
+  if (!game) {
+    return c.json(c, ERRORS.NOT_FOUND);
+  }
+
+  const status = await getLibraryItem(gameId, userId);
+  if (!status) {
+    return sendError(c, ERRORS.NOT_FOUND);
+  }
+
+  await deleteLibraryItem(status.id);
+
+  return c.json("ok", 200);
 }
