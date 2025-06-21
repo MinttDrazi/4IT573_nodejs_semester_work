@@ -1,6 +1,8 @@
 import { useAuth } from "@/auth";
+import type { libraryType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import StatusForm from "./StatusForm";
 
 interface GameStatusProps {
   gameId: string | undefined;
@@ -8,28 +10,21 @@ interface GameStatusProps {
 
 function GameStatus({ gameId }: GameStatusProps) {
   const { user } = useAuth();
-  const [status, setStatus] = useState<object>();
+  const [status, setStatus] = useState<libraryType>();
 
   useEffect(() => {
     if (!user?.id || !gameId) {
       return;
     }
 
-    // asynchronní pomocná funkce uvnitř effectu
-    const fetchStatus = async () => {
-      console.log(user?.id, user?.email);
-      try {
-        const res = await axios.get(
-          `http://localhost:3000/api/games/${gameId}/status?userId=${user?.id}`
-        );
+    axios
+      .get(`http://localhost:3000/api/library/${user?.id}/game/${gameId}`)
+      .then((res) => {
         setStatus(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchStatus();
-    // závislosti – efekt se spustí znovu, až se změní user.id nebo gameId
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [gameId, user]);
 
   if (!user) {
@@ -37,10 +32,9 @@ function GameStatus({ gameId }: GameStatusProps) {
   }
 
   return (
-    <div className="bg-blue-100 p-2 rounded-md w-fit my-4">
+    <div className="bg-gray-300 p-4 rounded-md w-fit min-w-40 space-y-2">
       <h5 className="font-semibold">Status</h5>
-      {/* <button onClick={fetchStatus}>Fetch</button> */}
-      <p>{status?.status}</p>
+      <StatusForm initialStatus={status?.status} gameId={gameId} />
     </div>
   );
 }

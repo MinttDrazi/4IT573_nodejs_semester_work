@@ -1,13 +1,15 @@
+import GameInfo from "@/components/GameInfo";
 import GameStatus from "@/components/GameStatus";
 import WishlistCard from "@/components/WishlistCard";
 import PageLayout from "@/layouts/PageLayout";
+import type { gameType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 function GamePage() {
   const { id } = useParams<{ id: string }>();
-  const [game, setGame] = useState<object>({});
+  const [game, setGame] = useState<gameType>();
 
   useEffect(() => {
     axios
@@ -22,10 +24,11 @@ function GamePage() {
 
   return (
     <PageLayout>
-      <h1>{game.title}</h1>
-      <p>{game.description}</p>
-      <GameStatus gameId={id} />
-      <WishlistCard gameId={id} />
+      {game && <GameInfo game={game} />}
+      <div className="w-full flex space-x-8 mt-6">
+        <GameStatus gameId={id} />
+        <WishlistCard gameId={id} />
+      </div>
     </PageLayout>
   );
 }

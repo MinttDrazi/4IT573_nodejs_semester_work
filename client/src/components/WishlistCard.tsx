@@ -1,6 +1,8 @@
 import { useAuth } from "@/auth";
+import type { wishlistType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
 interface WishlistCardProps {
   gameId: string | undefined;
@@ -8,14 +10,12 @@ interface WishlistCardProps {
 
 function WishlistCard({ gameId }: WishlistCardProps) {
   const { user } = useAuth();
-  const [wishlist, setWishlist] = useState<object>();
+  const [wishlist, setWishlist] = useState<wishlistType>();
 
   const addToWishlist = async () => {
-    const data = { gameId: gameId };
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/wishlist/${user?.id}`,
-        data
+        `http://localhost:3000/api/wishlist/${user?.id}/game/${gameId}`
       );
       console.log(res);
     } catch (err) {
@@ -40,41 +40,32 @@ function WishlistCard({ gameId }: WishlistCardProps) {
       return;
     }
 
-    // asynchronní pomocná funkce uvnitř effectu
-    const fetchWishlist = async () => {
-      console.log(user?.id, user?.email);
-      try {
-        const res = await axios.get(
-          `http://localhost:3000/api/games/${gameId}/wishlist?userId=${user?.id}`
-        );
+    axios
+      .get(`http://localhost:3000/api/wishlist/${user.id}/game/${gameId}`)
+      .then((res) => {
         setWishlist(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchWishlist();
-    // závislosti – efekt se spustí znovu, až se změní user.id nebo gameId
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [gameId, user]);
 
   if (!user) {
     return;
   }
 
-  if (!wishlist) {
-    return (
-      <div>
-        <button onClick={addToWishlist}>Add to wishlist</button>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-blue-100 p-2 rounded-md w-fit my-4">
+    <div className="bg-gray-300 p-4 rounded-md w-fit min-w-40 space-y-2">
       <h5 className="font-semibold">Wishlist</h5>
-      {/* <button onClick={fetchStatus}>Fetch</button> */}
-      <p>{wishlist?.gameId && "true"}</p>
-      <button onClick={removeFromWishlist}>Remove from wishlist</button>
+      {wishlist?.id ? (
+        <>
+          <p>Game wishlisted</p>
+          <Button onClick={removeFromWishlist}>Remove from wishlist</Button>
+        </>
+      ) : (
+        <Button onClick={addToWishlist}>Add to wishlist</Button>
+      )}
     </div>
   );
 }
