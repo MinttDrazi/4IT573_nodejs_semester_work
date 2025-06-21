@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1750256344210,
-      "tag": "0000_bizarre_smasher",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1750345390742,
-      "tag": "0001_gray_kronos",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1750429705109,
-      "tag": "0002_fine_mockingbird",
+      "when": 1750500759686,
+      "tag": "0000_far_thor_girl",
       "breakpoints": true
     }
   ]

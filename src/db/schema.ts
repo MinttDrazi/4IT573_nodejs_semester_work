@@ -15,7 +15,7 @@ export const gamesTable = sqliteTable("games", {
   image: text().notNull(),
 });
 
-export const userGamesTable = sqliteTable("user_games", {
+export const libraryTable = sqliteTable("library", {
   id: int().primaryKey({ autoIncrement: true }),
   userId: int()
     .notNull()
@@ -26,6 +26,16 @@ export const userGamesTable = sqliteTable("user_games", {
   status: text()
     .$type<"planned" | "playing" | "completed" | "on_hold" | "dropped">()
     .notNull(),
+});
+
+export const wishlistsTable = sqliteTable("wishlists", {
+  id: int().primaryKey({ autoIncrement: true }),
+  userId: int()
+    .notNull()
+    .references(() => usersTable.id),
+  gameId: int()
+    .notNull()
+    .references(() => gamesTable.id),
 });
 
 export const reviewsTable = sqliteTable(
@@ -46,13 +56,3 @@ export const reviewsTable = sqliteTable(
     check("rating_check_02", sql`${table.rating} >= 0`),
   ]
 );
-
-export const wishlistsTable = sqliteTable("wishlists", {
-  id: int().primaryKey({ autoIncrement: true }),
-  userId: int()
-    .notNull()
-    .references(() => usersTable.id),
-  gameId: int()
-    .notNull()
-    .references(() => gamesTable.id),
-});

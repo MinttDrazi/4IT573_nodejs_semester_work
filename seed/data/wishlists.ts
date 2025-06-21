@@ -1,4 +1,6 @@
-export const wishlistsRecords = [
+import { wishlistType } from "../../src/db/model/wishlistModel";
+
+export const wishlistsRecords: wishlistType[] = [
   {
     id: 1,
     userId: 1,

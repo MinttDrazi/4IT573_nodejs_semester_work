@@ -11,7 +11,7 @@ export const ERRORS: Record<string, ApiError> = {
   INVALID_PAYLOAD: {
     status: 400,
     code: "INVALID_PAYLOAD",
-    message: "Invalid data in request body.",
+    message: "Invalid data in request",
   },
   WRONG_PASSWORD: {
     status: 401,

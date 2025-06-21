@@ -20,14 +20,20 @@ https://rawg.io/
 - [x] Pridani css knihovny na frontendu
 - [x] Homepage - zobrazeni vsech videoher
 - [x] Registration page
+- [ ] Reviews section
+- [ ] create review apis - view, create, update and delete
 - [ ] add confirm password frotend check
 - [x] login page
 - [x] library page
 - [x] wishlist page
 - [ ] Detail game page
-- [ ] add all endpoints - not yet implemented
-- [ ] divide app.js file to smaller files per service
-- [ ] remake database
+- [x] add all endpoints - not yet implemented
+- [x] divide app.js file to smaller files per service (services)
+- [x] remake database
+- [x] Define model types
+- [ ] delete `console.logs`
+- [x] devide db.js to smaller files per database table (repositories)
+- [x] remake endpoints
 
 # Database
 

@@ -2,20 +2,20 @@ import { db } from "../src/db/connection";
 import {
   gamesTable,
   reviewsTable,
-  userGamesTable,
+  libraryTable,
   usersTable,
   wishlistsTable,
 } from "../src/db/schema";
 import { gameRecords } from "./data/games";
+import { libraryRecords } from "./data/library";
 import { reviewsRecords } from "./data/reviews";
-import { userGamesRecords } from "./data/userGames";
 import { userRecords } from "./data/users";
 import { wishlistsRecords } from "./data/wishlists";
 
 export async function seed() {
   console.log("Starting seed function ");
 
-  await db.delete(userGamesTable);
+  await db.delete(libraryTable);
   await db.delete(reviewsTable);
   await db.delete(wishlistsTable);
   await db.delete(gamesTable);
@@ -28,7 +28,7 @@ export async function seed() {
   await db.insert(gamesTable).values(gameRecords);
   console.log("Sample games inserted");
 
-  await db.insert(userGamesTable).values(userGamesRecords);
+  await db.insert(libraryTable).values(libraryRecords);
   console.log("Sample statuses inserted");
 
   await db.insert(wishlistsTable).values(wishlistsRecords);

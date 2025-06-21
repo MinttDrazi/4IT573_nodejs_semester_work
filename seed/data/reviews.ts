@@ -1,4 +1,6 @@
-export const reviewsRecords = [
+import { reviewType } from "../../src/db/model/reviewModel";
+
+export const reviewsRecords: reviewType[] = [
   {
     id: 1,
     userId: 1,

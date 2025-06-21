@@ -1,4 +1,6 @@
-export const gameRecords = [
+import { gameType } from "../../src/db/model/gameModel";
+
+export const gameRecords: gameType[] = [
   {
     id: 1,
     title: "Minecraft",

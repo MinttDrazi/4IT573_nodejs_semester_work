@@ -1,9 +1,6 @@
-import type { InferModel } from "drizzle-orm";
-import { userGamesTable } from "../../src/db/schema";
+import { libraryType } from "../../src/db/model/libraryModel";
 
-type NewUserGame = InferModel<typeof userGamesTable, "insert">;
-
-export const userGamesRecords: NewUserGame[] = [
+export const libraryRecords: libraryType[] = [
   {
     id: 1,
     userId: 1,

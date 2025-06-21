@@ -1,4 +1,6 @@
-export const userRecords = [
+import { userType } from "../../src/db/model/userModel";
+
+export const userRecords: userType[] = [
   {
     id: 1,
     username: "user",
