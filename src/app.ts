@@ -24,6 +24,7 @@ import {
   getGameReviewsHandler,
   removeReviewHandler,
 } from "./handlers/reviewHandler";
+import { requireAuthMiddleware } from "./middleware";
 
 export const app = new Hono();
 
@@ -38,75 +39,73 @@ app.use(
   })
 );
 
+// Auth Middleware
+const requireAuth = createMiddleware(requireAuthMiddleware);
+
 // Health-check
 app.get("/health", async (c: Context) => {
   return c.text("OK", 200);
 });
 
+// Auth endpoints
 app.post("/api/signup", signUp);
-
 app.post("/api/signin", singIn);
-
 app.get("/api/logout", logout);
 
+// Verify a signed-in user
 app.get("/api/verify", verify);
 
-//TODO: Vyresit ten middleware
-// const requireAuth = createMiddleware(async (c, next) => {
-//   const token = getCookie(c, "token");
-//   if (!token) {
-//     return sendError(c, ERRORS.UNAUTHORIZED);
-//   }
-
-//   try {
-//     jwt.verify(token, JWT_SECRET);
-//     await next();
-//   } catch (err) {
-//     return sendError(c, ERRORS.UNAUTHORIZED);
-//   }
-// });
-
-//*DONE: Get all games
+// Game endpoints
 app.get("/api/games", listGamesHandler);
-
-//*DONE: Get one game
 app.get("/api/games/:gameId", getGameHandler);
 
-//*DONE: Get all user's games in library
-app.get("/api/library/:userId", getUserLibraryHandler);
+// Library endpoints
+app.get("/api/library/:userId", requireAuth, getUserLibraryHandler);
+app.get(
+  "/api/library/:userId/game/:gameId",
+  requireAuth,
+  getGameFromLibraryHandler
+);
+app.post(
+  "/api/library/:userId/game/:gameId",
+  requireAuth,
+  changeGameStatusInLibraryHandler
+);
+app.delete(
+  "/api/library/:userId/game/:gameId",
+  requireAuth,
+  removeGameFromLibraryHandler
+);
 
-//*DONE: Get game item from user's library
-app.get("/api/library/:userId/game/:gameId", getGameFromLibraryHandler);
+// Wishlist endpoints
+app.get("/api/wishlist/:userId", requireAuth, getWishlistHandler);
+app.get(
+  "/api/wishlist/:userId/game/:gameId",
+  requireAuth,
+  getGameFromWishlistHandler
+);
+app.post(
+  "/api/wishlist/:userId/game/:gameId",
+  requireAuth,
+  addGameToWishlistHandler
+);
+app.delete(
+  "/api/wishlist/:userId/game/:gameId",
+  requireAuth,
+  removeGameFromWishlistHandler
+);
 
-//*DONE: Change game status in user's library
-app.post("/api/library/:userId/game/:gameId", changeGameStatusInLibraryHandler);
-
-//*DONE: Remove game status in user's library
-app.delete("/api/library/:userId/game/:gameId", removeGameFromLibraryHandler);
-
-//*DONE: Get user's wishlist
-app.get("/api/wishlist/:userId", getWishlistHandler);
-
-//*DONE: Get game from the wishlist
-app.get("/api/wishlist/:userId/game/:gameId", getGameFromWishlistHandler);
-
-//*DONE: Add game to the wishlist
-app.post("/api/wishlist/:userId/game/:gameId", addGameToWishlistHandler);
-
-//*DONE: Remove game from the wishlist
-app.delete("/api/wishlist/:userId/game/:gameId", removeGameFromWishlistHandler);
-
-//*DONE: Get reviews for game
+// Review endpoints
 app.get("/api/review/:gameId", getGameReviewsHandler);
-
-//*DONE: Get review for user for game
-app.get("/api/review/:userId/game/:gameId", getGameReviewForUserHandler);
-
-//*DONE: Create a new review for a game
-app.post("/api/review/:userId/game/:gameId", addReviewHandler);
-
-//*DONE: Update a review for a game from user
-app.put("/api/review/:userId/game/:gameId", editReviewHandler);
-
-// Delete review for a game from user
-app.delete("/api/review/:userId/game/:gameId", removeReviewHandler);
+app.get(
+  "/api/review/:userId/game/:gameId",
+  requireAuth,
+  getGameReviewForUserHandler
+);
+app.post("/api/review/:userId/game/:gameId", requireAuth, addReviewHandler);
+app.put("/api/review/:userId/game/:gameId", requireAuth, editReviewHandler);
+app.delete(
+  "/api/review/:userId/game/:gameId",
+  requireAuth,
+  removeReviewHandler
+);

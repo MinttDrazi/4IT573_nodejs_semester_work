@@ -35,7 +35,7 @@ https://rawg.io/
 - [x] pridat navigate to login and register page
 - [x] devide db.js to smaller files per database table (repositories)
 - [x] remake endpoints
-- [ ] finished and test the middleware
+- [x] finished and test the middleware
 - [ ] add checks for body in api calls
 - [x] pridat login/logout link do sidebaru
 

@@ -36,7 +36,7 @@ const formSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords must match",
-    path: ["confirmPassword"], // chyba se přiřadí na confirmPassword
+    path: ["confirmPassword"],
   });
 
 export function RegisterPage() {
