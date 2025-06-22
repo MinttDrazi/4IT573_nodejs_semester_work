@@ -20,8 +20,8 @@ https://rawg.io/
 - [x] Pridani css knihovny na frontendu
 - [x] Homepage - zobrazeni vsech videoher
 - [x] Registration page
-- [ ] Reviews section
-- [ ] create review apis - view, create, update and delete
+- [x] Reviews section
+- [x] create review apis - view, create, update and delete
 - [ ] add confirm password frotend check
 - [x] login page
 - [x] library page
@@ -34,6 +34,8 @@ https://rawg.io/
 - [ ] delete `console.logs` z login a register page
 - [x] devide db.js to smaller files per database table (repositories)
 - [x] remake endpoints
+- [ ] finished and test the middleware
+- [ ] add checks for body in api calls
 
 # Database
 

@@ -46,7 +46,7 @@ function GameStatus({ gameId }: GameStatusProps) {
   }
 
   return (
-    <div className="bg-gray-300 p-4 rounded-md w-fit min-w-40 space-y-2">
+    <div className="bg-gray-300 p-4 rounded-md w-fit min-w-50 space-y-2 h-fit">
       <h5 className="font-semibold">Status</h5>
       <StatusForm initialStatus={status?.status} gameId={gameId} />
       <Button onClick={removeStatus}>Remove Status</Button>

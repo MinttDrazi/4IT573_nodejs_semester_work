@@ -17,6 +17,13 @@ import {
   getUserLibraryHandler,
   removeGameFromLibraryHandler,
 } from "./handlers/libraryHandler";
+import {
+  addReviewHandler,
+  editReviewHandler,
+  getGameReviewForUserHandler,
+  getGameReviewsHandler,
+  removeReviewHandler,
+} from "./handlers/reviewHandler";
 
 export const app = new Hono();
 
@@ -84,30 +91,20 @@ app.get("/api/wishlist/:userId/game/:gameId", getGameFromWishlistHandler);
 //*DONE: Add game to the wishlist
 app.post("/api/wishlist/:userId/game/:gameId", addGameToWishlistHandler);
 
-//*ODNE: Remove game from the wishlist
+//*DONE: Remove game from the wishlist
 app.delete("/api/wishlist/:userId/game/:gameId", removeGameFromWishlistHandler);
 
-//!NOT IMPLEMENTED: get reviews for game
-app.get("/api/reviews/:gameId", async (c) => {
-  return c.json("not yet implemented");
-});
+// Get reviews for game
+app.get("/api/review/:gameId", getGameReviewsHandler);
 
-//!NOT IMPLEMENTED: get review for user for game
-app.get("/api/review/:userId/game/:gameId", async (c) => {
-  return c.json("not yet implemented");
-});
+// Get review for user for game
+app.get("/api/review/:userId/game/:gameId", getGameReviewForUserHandler);
 
-//!NOT IMPLEMENTED: create a new review for a game
-app.post("/api/review/:userId/game/:gameId", async (c) => {
-  return c.json("not yet implemented");
-});
+// Create a new review for a game
+app.post("/api/review/:userId/game/:gameId", addReviewHandler);
 
-//!NOT IMPLEMENTED: update a review for a game from user
-app.put("/api/review/:userId/game/:gameId", async (c) => {
-  return c.json("not yet implemented");
-});
+// Update a review for a game from user
+app.put("/api/review/:userId/game/:gameId", editReviewHandler);
 
-//!NOT IMPLEMENTED: delete review for a game from user
-app.delete("/api/review/:userId/game/:gameId", async (c) => {
-  return c.json("not yet implemented");
-});
+// Delete review for a game from user
+app.delete("/api/review/:userId/game/:gameId", removeReviewHandler);

@@ -8,7 +8,7 @@ import { getCookie, setCookie } from "hono/cookie";
 
 //TODO : Pridat kontrolu vstupu pred jejim zpracovanim
 export async function signUp(c: Context) {
-  const { data } = await c.req.json();
+  const data = await c.req.json();
 
   const exists = await getUser(data.email);
   if (exists) {

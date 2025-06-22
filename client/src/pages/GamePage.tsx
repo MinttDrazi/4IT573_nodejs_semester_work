@@ -1,5 +1,6 @@
 import GameInfo from "@/components/GameInfo";
 import GameStatus from "@/components/GameStatus";
+import ReviewSection from "@/components/ReviewSection";
 import WishlistCard from "@/components/WishlistCard";
 import PageLayout from "@/layouts/PageLayout";
 import type { gameType } from "@/types";
@@ -28,6 +29,7 @@ function GamePage() {
       <div className="w-full flex space-x-8 mt-6">
         <GameStatus gameId={id} />
         <WishlistCard gameId={id} />
+        <ReviewSection gameId={id} />
       </div>
     </PageLayout>
   );
