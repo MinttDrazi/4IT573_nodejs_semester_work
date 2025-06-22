@@ -24,7 +24,10 @@ export async function signUp(c: Context) {
 
   const newUser = await createUser(username, email, password);
 
-  return c.json(newUser, 201);
+  return c.json(
+    { id: username.id, username: newUser.username, email: newUser.email },
+    201
+  );
 }
 
 export async function singIn(c: Context) {
