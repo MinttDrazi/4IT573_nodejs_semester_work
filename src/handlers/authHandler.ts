@@ -5,24 +5,36 @@ import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { JWT_MAX_AGE, JWT_SECRET } from "../config";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
+import { signUpSchema, singInSchema } from "../schema";
 
-//TODO : Pridat kontrolu vstupu pred jejim zpracovanim
 export async function signUp(c: Context) {
   const data = await c.req.json();
 
-  const exists = await getUser(data.email);
+  const result = signUpSchema.safeParse(data);
+  if (!result.success) {
+    const errors = result.error.format();
+    return c.json(errors, 400);
+  }
+  const { username, email, password } = data;
+
+  const exists = await getUser(email);
   if (exists) {
     return sendError(c, ERRORS.USER_ALREADY_EXISTS);
   }
 
-  const newUser = await createUser(data);
+  const newUser = await createUser(username, email, password);
 
   return c.json(newUser, 201);
 }
 
-//TODO : Pridat kontrolu vstupu pred jejim zpracovanim
 export async function singIn(c: Context) {
   const data = await c.req.json();
+
+  const result = singInSchema.safeParse(data);
+  if (!result.success) {
+    const errors = result.error.format();
+    return c.json(errors, 400);
+  }
 
   const user = await getUser(data.email);
   if (!user) {

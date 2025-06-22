@@ -8,6 +8,7 @@ import {
 } from "../db/repositories/libraryRepository";
 import { getGameById, getGamesByIds } from "../db/repositories/gameRepository";
 import { ERRORS, sendError } from "../errors";
+import { changeStatusSchema } from "../schema";
 
 export async function getUserLibraryHandler(c: Context) {
   const userId = parseInt(c.req.param("userId"));
@@ -56,7 +57,14 @@ export async function getGameFromLibraryHandler(c: Context) {
 export async function changeGameStatusInLibraryHandler(c: Context) {
   const userId = parseInt(c.req.param("userId"));
   const gameId = parseInt(c.req.param("gameId"));
-  const { newStatus } = await c.req.json();
+  const data = await c.req.json();
+
+  const result = changeStatusSchema.safeParse(data);
+  if (!result.success) {
+    const errors = result.error.format();
+    return c.json(errors, 400);
+  }
+  const { newStatus } = data;
 
   if (isNaN(userId) || isNaN(gameId)) {
     return sendError(c, ERRORS.INVALID_PAYLOAD);

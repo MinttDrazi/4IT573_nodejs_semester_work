@@ -13,13 +13,17 @@ export async function getUser(email: string) {
   return user;
 }
 
-export async function createUser(data: userInputType) {
-  const passwordHash = await argon2.hash(data.passwordHash);
+export async function createUser(
+  username: string,
+  email: string,
+  password: string
+) {
+  const passwordHash = await argon2.hash(password);
   const user = await db
     .insert(usersTable)
     .values({
-      username: data.username,
-      email: data.email,
+      username: username,
+      email: email,
       passwordHash: passwordHash,
     })
     .returning()

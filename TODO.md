@@ -36,7 +36,7 @@ https://rawg.io/
 - [x] devide db.js to smaller files per database table (repositories)
 - [x] remake endpoints
 - [x] finished and test the middleware
-- [ ] add checks for body in api calls
+- [x] add checks for body in api calls
 - [x] pridat login/logout link do sidebaru
 
 # Database

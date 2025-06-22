@@ -44,11 +44,16 @@ function ReviewForm({
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    const data = {
+      rating: parseInt(values.rating),
+      reviewText: values.reviewText,
+    };
+
     if (initialReview) {
       try {
         const res = await axios.put(
           `http://localhost:3000/api/review/${userId}/game/${gameId}`,
-          values
+          data
         );
         console.log("Updated:", res.data);
       } catch (err) {
@@ -58,7 +63,7 @@ function ReviewForm({
       try {
         const res = await axios.post(
           `http://localhost:3000/api/review/${userId}/game/${gameId}`,
-          values
+          data
         );
         console.log("Created:", res.data);
       } catch (err) {

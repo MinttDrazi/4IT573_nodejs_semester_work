@@ -8,6 +8,7 @@ import {
   getReviewsByGameId,
   updateReview,
 } from "../db/repositories/reviewRepository";
+import { createReviewSchema } from "../schema";
 
 export async function getGameReviewsHandler(c: Context) {
   const gameId = parseInt(c.req.param("gameId"));
@@ -51,6 +52,12 @@ export async function addReviewHandler(c: Context) {
   const userId = parseInt(c.req.param("userId"));
   const gameId = parseInt(c.req.param("gameId"));
   const data = await c.req.json();
+
+  const result = createReviewSchema.safeParse(data);
+  if (!result.success) {
+    const errors = result.error.format();
+    return c.json(errors, 400);
+  }
 
   if (isNaN(userId) || isNaN(gameId)) {
     return sendError(c, ERRORS.INVALID_PAYLOAD);
