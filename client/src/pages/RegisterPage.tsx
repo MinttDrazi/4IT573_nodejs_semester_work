@@ -14,26 +14,33 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import PageLayout from "@/layouts/PageLayout";
+import { useNavigate } from "react-router";
 
-const formSchema = z.object({
-  username: z.string().min(4, {
-    message: "Username must be at least 4 characters.",
-  }),
-  email: z
-    .string()
-    .min(7, {
-      message: "Enter complete email",
-    })
-    .email(),
-  password: z.string().min(8, {
-    message: "Password must by at least 8 characters",
-  }),
-  confirmPassword: z.string().min(8, {
-    message: "Password must by at least 8 characters",
-  }),
-});
+const formSchema = z
+  .object({
+    username: z.string().min(4, {
+      message: "Username must be at least 4 characters.",
+    }),
+    email: z
+      .string()
+      .min(7, {
+        message: "Enter complete email",
+      })
+      .email(),
+    password: z.string().min(8, {
+      message: "Password must by at least 8 characters",
+    }),
+    confirmPassword: z.string().min(8, {
+      message: "Password must by at least 8 characters",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"], // chyba se přiřadí na confirmPassword
+  });
 
 export function RegisterPage() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,6 +63,7 @@ export function RegisterPage() {
         data
       );
       console.log(response);
+      navigate("/login");
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         console.log(err.response?.status, err.response?.data.error);

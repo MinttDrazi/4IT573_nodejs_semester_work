@@ -1,6 +1,6 @@
-import { useAuth } from "@/auth";
 import GameCard from "@/components/GameCard";
 import H1Heading from "@/components/typography/H1Heading";
+import { useAuth } from "@/hooks/useAuth";
 import PageLayout from "@/layouts/PageLayout";
 import type { gameType } from "@/types";
 import axios from "axios";

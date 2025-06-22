@@ -1,9 +1,10 @@
-import { useAuth } from "@/auth";
 import type { reviewType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ReviewCard from "./ReviewCard";
 import ReviewForm from "./ReviewForm";
+import { useAuth } from "@/hooks/useAuth";
+import DeleteReview from "./DeleteReview";
 
 function ReviewSection({ gameId }: { gameId: string | undefined }) {
   const { user } = useAuth();
@@ -36,7 +37,8 @@ function ReviewSection({ gameId }: { gameId: string | undefined }) {
               userId={user.id}
               gameId={gameId}
             />
-            <div className="h-2 bg-black mt-10 rounded-xl" />
+            <div className="h-2 bg-black mt-10 mb-4 rounded-xl" />
+            {userReview && <DeleteReview userId={user.id} gameId={gameId} />}
           </>
         )}
       </div>

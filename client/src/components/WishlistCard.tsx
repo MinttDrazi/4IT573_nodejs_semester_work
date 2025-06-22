@@ -1,8 +1,8 @@
-import { useAuth } from "@/auth";
 import type { wishlistType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface WishlistCardProps {
   gameId: string | undefined;

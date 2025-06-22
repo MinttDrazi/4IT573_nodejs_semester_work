@@ -1,14 +1,14 @@
-import { useAuth } from "@/auth";
 import GameCard from "@/components/GameCard";
 import H1Heading from "@/components/typography/H1Heading";
+import { useAuth } from "@/hooks/useAuth";
 import PageLayout from "@/layouts/PageLayout";
 import type { gameType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 function WishlistPage() {
-  const { user } = useAuth();
   const [games, setGames] = useState<gameType[]>([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     axios

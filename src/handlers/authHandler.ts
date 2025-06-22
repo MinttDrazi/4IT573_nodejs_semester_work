@@ -4,7 +4,7 @@ import { ERRORS, sendError } from "../errors";
 import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import { JWT_MAX_AGE, JWT_SECRET } from "../config";
-import { getCookie, setCookie } from "hono/cookie";
+import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 
 //TODO : Pridat kontrolu vstupu pred jejim zpracovanim
 export async function signUp(c: Context) {
@@ -45,6 +45,12 @@ export async function singIn(c: Context) {
   });
 
   return c.json("OK", 200);
+}
+
+export async function logout(c: Context) {
+  deleteCookie(c, "token");
+
+  return c.json("logged out", 200);
 }
 
 export async function verify(c: Context) {

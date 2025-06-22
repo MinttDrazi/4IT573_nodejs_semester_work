@@ -1,6 +1,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -9,7 +10,10 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Gamepad, Home, List } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { Button } from "./ui/button";
+import { logout } from "@/apis/logout";
+import { useAuth } from "@/hooks/useAuth";
 
 const items = [
   {
@@ -30,6 +34,15 @@ const items = [
 ];
 
 function AppSidebar() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  async function logoutOnClick() {
+    await logout();
+    console.log("clicked to logout");
+    navigate("/");
+  }
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -51,6 +64,27 @@ function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          {user ? (
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Button onClick={logoutOnClick}>
+                  <span>logout</span>
+                </Button>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ) : (
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink to="/login">
+                  <span>Login</span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -3,7 +3,7 @@ import { cors } from "hono/cors";
 import type { Context } from "hono";
 
 import { createMiddleware } from "hono/factory";
-import { signUp, singIn, verify } from "./handlers/authHandler";
+import { logout, signUp, singIn, verify } from "./handlers/authHandler";
 import { getGameHandler, listGamesHandler } from "./handlers/gameHandler";
 import {
   addGameToWishlistHandler,
@@ -47,6 +47,8 @@ app.post("/api/signup", signUp);
 
 app.post("/api/signin", singIn);
 
+app.get("/api/logout", logout);
+
 app.get("/api/verify", verify);
 
 //TODO: Vyresit ten middleware
@@ -79,7 +81,7 @@ app.get("/api/library/:userId/game/:gameId", getGameFromLibraryHandler);
 //*DONE: Change game status in user's library
 app.post("/api/library/:userId/game/:gameId", changeGameStatusInLibraryHandler);
 
-// Remove game status in user's library
+//*DONE: Remove game status in user's library
 app.delete("/api/library/:userId/game/:gameId", removeGameFromLibraryHandler);
 
 //*DONE: Get user's wishlist
@@ -94,16 +96,16 @@ app.post("/api/wishlist/:userId/game/:gameId", addGameToWishlistHandler);
 //*DONE: Remove game from the wishlist
 app.delete("/api/wishlist/:userId/game/:gameId", removeGameFromWishlistHandler);
 
-// Get reviews for game
+//*DONE: Get reviews for game
 app.get("/api/review/:gameId", getGameReviewsHandler);
 
-// Get review for user for game
+//*DONE: Get review for user for game
 app.get("/api/review/:userId/game/:gameId", getGameReviewForUserHandler);
 
-// Create a new review for a game
+//*DONE: Create a new review for a game
 app.post("/api/review/:userId/game/:gameId", addReviewHandler);
 
-// Update a review for a game from user
+//*DONE: Update a review for a game from user
 app.put("/api/review/:userId/game/:gameId", editReviewHandler);
 
 // Delete review for a game from user

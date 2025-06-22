@@ -22,7 +22,8 @@ https://rawg.io/
 - [x] Registration page
 - [x] Reviews section
 - [x] create review apis - view, create, update and delete
-- [ ] add confirm password frotend check
+- [x] add confirm password frotend check
+- [x] add logout api, add to frontend
 - [x] login page
 - [x] library page
 - [x] wishlist page
@@ -31,11 +32,12 @@ https://rawg.io/
 - [x] divide app.js file to smaller files per service (services)
 - [x] remake database
 - [x] Define model types
-- [ ] delete `console.logs` z login a register page
+- [x] pridat navigate to login and register page
 - [x] devide db.js to smaller files per database table (repositories)
 - [x] remake endpoints
 - [ ] finished and test the middleware
 - [ ] add checks for body in api calls
+- [x] pridat login/logout link do sidebaru
 
 # Database
 

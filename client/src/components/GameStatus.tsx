@@ -1,9 +1,9 @@
-import { useAuth } from "@/auth";
 import type { libraryType } from "@/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import StatusForm from "./StatusForm";
 import { Button } from "./ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 interface GameStatusProps {
   gameId: string | undefined;

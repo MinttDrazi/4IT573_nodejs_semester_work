@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import PageLayout from "@/layouts/PageLayout";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 const formSchema = z.object({
   email: z
@@ -29,6 +29,7 @@ const formSchema = z.object({
 });
 
 export function LoginPage() {
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,6 +49,7 @@ export function LoginPage() {
         data
       );
       console.log(response);
+      navigate("/");
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         console.log(err.response?.status, err.response?.data.error);

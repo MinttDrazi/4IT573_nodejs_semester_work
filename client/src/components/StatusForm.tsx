@@ -18,7 +18,7 @@ import {
 } from "./ui/select";
 import { useEffect } from "react";
 import axios from "axios";
-import { useAuth } from "@/auth";
+import { useAuth } from "@/hooks/useAuth";
 
 const statuses = [
   {
