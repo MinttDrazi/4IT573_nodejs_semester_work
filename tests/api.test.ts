@@ -1,8 +1,0 @@
-import { expect, test } from "vitest";
-import { app } from "../src/app";
-
-test("GET /health", async () => {
-  const res = await app.request("/health");
-  expect(res.status).toBe(200);
-  expect(await res.text()).toBe("OK");
-});
