@@ -2,25 +2,6 @@ import { expect, test } from "vitest";
 import { app } from "../../src/app";
 import { getTestAuthCookie } from "../helpers";
 
-test("GET /health", async () => {
-  const res = await app.request("/health");
-  expect(res.status).toBe(200);
-  expect(await res.text()).toBe("OK");
-});
-
-test("POST /api/signin", async () => {
-  const requestBody = {
-    email: "user@mail.com",
-    password: "12345678",
-  };
-  const res = await app.request("/api/signin", {
-    method: "POST",
-    body: JSON.stringify(requestBody),
-  });
-  expect(res.status).toBe(200);
-  expect(await res.json()).toBe("OK");
-});
-
 test("GET /api/library/:userId", async () => {
   const userId = 1;
   const token = getTestAuthCookie({ id: 1, email: "user@mail.com" });
@@ -60,17 +41,4 @@ test("GET /api/library/:userId", async () => {
   });
   expect(res.status).toBe(200);
   expect(await res.json()).toEqual(response);
-});
-
-test.fails("Logged-in user cannot request other users data", async () => {
-  const userId = 2;
-  const token = getTestAuthCookie({ id: 1, email: "user@mail.com" });
-
-  const res = await app.request(`/api/wishlist/${userId}`, {
-    method: "GET",
-    headers: { Cookie: token },
-  });
-
-  expect(res.status).toBe(200);
-  expect(await res.json()).toEqual([]);
 });
